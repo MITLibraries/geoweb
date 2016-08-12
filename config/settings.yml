@@ -30,7 +30,7 @@ FIELDS:
   :TITLE: 'dc_title_s'
 
 # Institution deployed at
-INSTITUTION: 'Stanford'
+INSTITUTION: 'MIT'
 
 # Metadata shown in tool panel
 METADATA_SHOWN:
