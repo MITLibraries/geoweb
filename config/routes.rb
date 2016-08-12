@@ -26,7 +26,12 @@ resources :download, only: [:show]
     concerns :searchable
   end
 
-  devise_for :users
+  devise_for :users, skip: [:sessions, :registrations, :passwords],
+    controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
+    get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
+    delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+  end
   concern :exportable, Blacklight::Routes::Exportable.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
