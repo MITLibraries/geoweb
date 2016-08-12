@@ -46,6 +46,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'geoblacklight', '~> 1.1.0'
 gem 'omniauth-shibboleth'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
