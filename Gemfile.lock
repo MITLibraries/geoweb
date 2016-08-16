@@ -39,10 +39,10 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.1)
-    autoprefixer-rails (6.4.0.1)
+    autoprefixer-rails (6.4.0.2)
       execjs
     bcrypt (3.1.11)
-    blacklight (6.4.1)
+    blacklight (6.4.2)
       bootstrap-sass (~> 3.2)
       deprecation
       globalid
@@ -91,7 +91,7 @@ GEM
     ffi (1.9.14)
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
-    geoblacklight (1.1.1)
+    geoblacklight (1.1.2)
       blacklight (~> 6.3)
       coderay
       config
