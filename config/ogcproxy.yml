@@ -1,0 +1,10 @@
+development:
+  backend: http://localhost:8080
+  prefix: /geoserver
+  username: admin
+  password: geoserver
+production:
+  backend: <%= ENV["OGC_PROXY_HOST"] %>
+  prefix: /geoserver
+  username: <%= ENV["OGC_PROXY_USERNAME"] %>
+  password: <%= ENV["OGC_PROXY_PASSWORD"] %>

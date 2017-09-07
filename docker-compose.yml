@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   web:
-    image: geoweb
+    image: geoblacklight
     build: .
     ports:
       - "3000:3000"
@@ -17,6 +17,9 @@ services:
       POSTGRES_USERNAME: postgres
       SECRET_KEY_BASE:
       SOLR_URL: http://solr:8983/solr/geoweb
+      OGC_PROXY_HOST: http://geoserver:8080
+      OGC_PROXY_USERNAME: "${GEOSERVER_USER:-admin}"
+      OGC_PROXY_PASSWORD: "${GEOSERVER_PASSWORD}"
   geoserver:
     image: mitlibraries/geoserver
     ports:
