@@ -5,9 +5,6 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
-  def sms_mappings
-  end
-
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
@@ -228,6 +225,9 @@ class CatalogController < ApplicationController
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
+
+    config.show.document_actions.delete(:citation)
+    config.show.document_actions.delete(:sms)
   end
 
 
