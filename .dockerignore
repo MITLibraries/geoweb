@@ -1,0 +1,5 @@
+tmp
+log
+.git
+.env
+db/*.sqlite3
