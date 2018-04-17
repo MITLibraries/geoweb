@@ -1,0 +1,55 @@
+<div class='jumbotron'>
+  <div class='home-search-area'>
+    <%= content_tag :h2, t('geoblacklight.home.headline') %>
+    <%= content_tag :h3, t('geoblacklight.home.search_heading') %>
+    <div class='row'>
+      <div class='col-md-6 col-md-offset-3'>
+        <%= render_search_form_no_navbar %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='row'>
+    <h2>Explore</h2>
+    <div class='row' id="featured-searches">
+      <div class='col-sm-4'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= link_to search_catalog_path(q: "india") do %>
+              <%= image_tag 'india.png' %>
+              <h3>India</h3>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-4'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= link_to search_catalog_path(q: "massachusetts") do %>
+              <%= image_tag 'mass.png' %>
+              <h3>Massachusetts</h3>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-4'>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%= link_to search_catalog_path(f: {'layer_geom_type_s': ['Image']}) do %>
+              <%= image_tag 'scanned_maps.png' %>
+              <h3>Scanned Maps</h3>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <%= content_tag :h3, t('geoblacklight.home.map_heading') %>
+      <%= content_tag :div, '', id: 'map', data: { map: 'home', 'catalog-path'=> search_catalog_path , 'map-bbox' => params[:bbox], basemap: geoblacklight_basemap, leaflet_options: leaflet_options } %>
+    </div>
+  </div>
+</div>

@@ -65,3 +65,15 @@ footer {
     }
   }
 }
+
+#featured-searches {
+  .panel-body {
+    padding: 0;
+    h3 {
+      margin-left: 15px;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
