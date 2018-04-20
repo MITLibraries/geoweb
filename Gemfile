@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bootsnap'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'devise-guests', '~> 0.5'
