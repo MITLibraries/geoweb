@@ -9,3 +9,7 @@ GeoBlacklight.Basemaps['osmhot'] = L.tileLayer(
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
   }
 );
+
+GeoBlacklight.Viewer.Map.mergeOptions({
+  bbox: [[-45, -154], [65, 145]]
+});
