@@ -69,6 +69,9 @@ Rails.application.configure do
     :port => 25,
     :domain => "mit.edu"
   }
+  config.action_mailer.default_options = {
+    :from => "geodata@mit.edu"
+  }
 
   config.action_mailer.perform_caching = false
 
