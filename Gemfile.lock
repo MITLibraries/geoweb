@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/OpenGeoMetadata/GeoCombine.git
+  revision: 934e86f0ed7f29ab48e28a237ae2b8e9e2d7727c
+  branch: master
+  specs:
+    geo_combine (0.3.1)
+      activesupport
+      json-schema
+      net-http-persistent (~> 2.0)
+      nokogiri
+      rsolr
+      sanitize
+      thor
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,12 +145,6 @@ GEM
     ffi (1.9.23)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
-    geo_combine (0.3.1)
-      json-schema
-      nokogiri
-      rsolr
-      sanitize
-      thor
     geoblacklight (1.8.0)
       blacklight (~> 6.11)
       coderay
@@ -211,6 +219,7 @@ GEM
     msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
+    net-http-persistent (2.9.4)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -330,6 +339,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.5)
   dotenv-rails
+  geo_combine!
   geoblacklight (~> 1.0)
   jbuilder (~> 2.5)
   jquery-rails
