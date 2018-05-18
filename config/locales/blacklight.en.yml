@@ -4,3 +4,6 @@ en:
     search:
       page_title:
         title: 'GeoWeb Search Results'
+      form:
+        search:
+          placeholder: 'Search for data...'
