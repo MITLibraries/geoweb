@@ -16,6 +16,7 @@ gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.0'
 gem 'rsolr', '~> 1.0'
 gem 'sass-rails', '~> 5.0'
+gem 'sentry-raven'
 gem 'solr_wrapper', '>= 0.3'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
