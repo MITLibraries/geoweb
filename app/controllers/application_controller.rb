@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def new_session_path(scope)
     new_user_session_path
   end
+
+  def route_not_found
+    render file: 'public/404.html', status: :not_found
+  end
 end
