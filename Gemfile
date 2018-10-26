@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'blacklight', '~> 6.14.0'
 gem 'bootsnap'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
