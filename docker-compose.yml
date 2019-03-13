@@ -21,3 +21,5 @@ services:
     command: solr-create -c geoweb -d /solr/conf
     volumes:
       - ./solr/conf:/solr/conf
+    ports:
+      - 8983:8983
