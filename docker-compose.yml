@@ -1,10 +1,12 @@
-version: "3.4"
+version: "3.7"
 services:
   web:
     image: geoweb
     build: .
     ports:
       - "3000:3000"
+    depends_on:
+      - db
     environment:
       RAILS_ENV: production
       RAILS_LOG_TO_STDOUT: 1
@@ -14,12 +16,53 @@ services:
       POSTGRES_USERNAME: postgres
       SECRET_KEY_BASE:
       SOLR_URL: http://solr:8983/solr/geoweb
-  db:
-    image: postgres
-  solr:
-    image: solr
-    command: solr-create -c geoweb -d /solr/conf
-    volumes:
-      - ./solr/conf:/solr/conf
+  geoserver:
+    image: mitlibraries/geoserver
     ports:
-      - 8983:8983
+      - "8080:8080"
+    volumes:
+      - type: volume
+        source: geoserver
+        target: /var/geoserver/data
+    environment:
+      JAVA_OPTS: "-Ds3.properties.location=/var/geoserver/data/s3.properties"
+      GEOSERVER_USER: "${GEOSERVER_USER:-admin}"
+      GEOSERVER_PASSWORD: "${GEOSERVER_PASSWORD}"
+      MINIO_URL: http://minio:9000/
+      MINIO_USER: "${MINIO_USER:-minio}"
+      MINIO_PASSWORD: "${MINIO_PASSWORD}"
+  solr:
+    image: mitlibraries/geosolr
+    ports:
+      - "8983:8983"
+    environment:
+      SOLR_HOME: /var/solr
+    volumes:
+      - type: volume
+        source: geosolr
+        target: /var/solr
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    command: ["server", "/data"]
+    environment:
+      MINIO_ACCESS_KEY: "${MINIO_USER:-minio}"
+      MINIO_SECRET_KEY: "${MINIO_PASSWORD}"
+    volumes:
+      - type: volume
+        source: s3
+        target: /data
+  db:
+    image: mdillon/postgis
+    ports:
+      - "5432:5432"
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/postgresql/data
+volumes:
+  geoserver:
+  geosolr:
+  s3:
+  db:
