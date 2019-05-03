@@ -73,4 +73,16 @@ Now you are ready to add some data! Run the following:
 
     $ pipenv run slingshot publish upload bermuda.zip store
 
+_Note: `upload` and `store` in this command refer to bucket names. If you did not create them yet, see above. If you named them something else, modify this command to match your chosen names._  
+
 If all goes well you should see a message about the layer being published. You can now open up your GeoBlacklight instance and search for your layer.
+
+## Troubleshooting
+
+### Any database errors
+
+If you are running a pg database outside of this docker context, it's probably best to stop it, `docker-compose down` and `docker-compose up` to see if that resolves your problem.
+
+### Bucket doesn't exist errors
+
+There was a setup step where you are supposed to setup `upload` and `store` buckets. Did you do that? Did you name them something else? Did you use that alternate name in your various `.env` files and `slingshot` command?
