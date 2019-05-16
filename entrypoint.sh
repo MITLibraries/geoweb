@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 bundle exec rake db:setup || bundle exec rake db:migrate

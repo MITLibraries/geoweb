@@ -1,0 +1,9 @@
+language: minimal
+install: pip install --user awscli
+jobs:
+  include:
+    - stage: deploy
+      before_deploy: make dist
+      deploy:
+        provider: script
+        script: make publish

@@ -1,6 +1,6 @@
-FROM ruby:2.4
+FROM ruby:2.6-alpine
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN apk add --no-cache build-base postgresql-dev nodejs tzdata
 
 WORKDIR /geoweb
 COPY Gemfile* /geoweb/
