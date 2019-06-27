@@ -13,8 +13,22 @@
         </li>
       <% else %>
         <li>
+          <% if ENV['AUTH_TYPE'] == 'developer' %>
+
+            <%= link_to t('blacklight.header_links.login'),
+                          user_developer_omniauth_authorize_path %>
+
+          <% elsif ENV['AUTH_TYPE'] == 'saml' %>
+
           <%= link_to t('blacklight.header_links.login'),
-                        user_shibboleth_omniauth_authorize_path %>
+                        user_saml_omniauth_authorize_path %>
+
+          <% else %>
+
+            <%= link_to t('blacklight.header_links.login'),
+                          user_shibboleth_omniauth_authorize_path %>
+
+          <% end %>
         </li>
       <% end %>
     </ul>

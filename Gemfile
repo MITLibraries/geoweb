@@ -10,6 +10,7 @@ gem 'geoblacklight', '~> 1.8.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'lograge'
+gem 'omniauth-saml'
 gem 'omniauth-shibboleth'
 gem 'pg'
 gem 'puma', '~> 3.7'
@@ -22,7 +23,7 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
 end
 
 group :development do

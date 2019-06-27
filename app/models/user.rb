@@ -7,7 +7,13 @@ class User < ApplicationRecord
   include Blacklight::User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :omniauthable, :omniauth_providers => [:shibboleth]
+  if ENV['AUTH_TYPE'] == 'developer'
+    devise :omniauthable, omniauth_providers: [:developer]
+  elsif ENV['AUTH_TYPE'] = 'saml'
+    devise :omniauthable, :omniauth_providers => [:saml]
+  else
+    devise :omniauthable, :omniauth_providers => [:shibboleth]
+  end
 
   def self.from_omniauth(auth)
     where(uid: auth.uid).first_or_create do |user|

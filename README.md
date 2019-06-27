@@ -77,6 +77,28 @@ _Note: `upload` and `store` in this command refer to bucket names. If you did no
 
 If all goes well you should see a message about the layer being published. You can now open up your GeoBlacklight instance and search for your layer.
 
+## Authentication
+
+### Developer (aka fakeauth)
+For local development, adding `AUTH_TYPE=developer` to .env is probably easiest.
+
+### SAML
+
+For production, or for when you need to test some SAML integration locally, set a bunch of variables as indicated here. For Touchstone, you can grab the `IDP_*` values from one of our production apps.
+
+- `AUTH_TYPE=saml`
+- `IDP_METADATA_URL` - URL from which the IDP metadata can be obtained. This is loaded at application start to ensure it remains up to date.
+- `IDP_ENTITY_ID` - If `IDP_METADATA_URL` returns more than one IdP (like MIT does) entry, this setting signifies which IdP to use.
+- `IDP_SSO_URL` - the URL from the IdP metadata to use for authentication. I was unable to reliably extract this directly from the metadata with the ruby-saml tool even though it for sure exists.
+- `SP_ENTITY_ID` - unique identifier to this application, ex: https://example.com/shibboleth
+- `SP_PRIVATE_KEY` - Base64 strict encoded version of the SP Private Key. note: Base64 is required due to multiline ENV being weird to deal with.
+- `SP_CERTIFICATE` - Base64 strict encoded version of the SP Certificate. note: Base64 is required due to multiline ENV being weird to deal with.- URN_EMAIL
+- `URN_EMAIL` - URN to extract from SAML response. For MIT, urn:oid:0.9.2342.19200300.100.1.3 for testshib urn:oid:1.3.6.1.4.1.5923.1.1.1.6 is close enough for testing. For onelogin, I just added a new parameter field of `urn:oid:1.3.6.1.4.1.5923.1.1.1.6` to match MIT which seems to work.
+
+### Shibboleth / mod_shib
+
+If you _need_ to use this, good luck to you. Don't set any `AUTH_TYPE` in `.env` and figure out how to make mod_shib work. :shrug:
+
 ## Troubleshooting
 
 ### Any database errors
