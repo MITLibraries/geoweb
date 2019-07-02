@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.6.1'
 
 gem 'blacklight', '~> 6.14.0'
 gem 'bootsnap'
@@ -14,6 +15,7 @@ gem 'omniauth-saml'
 gem 'omniauth-shibboleth'
 gem 'pg'
 gem 'puma', '~> 3.7'
+gem 'rack-proxy'
 gem 'rails', '~> 5.0'
 gem 'rsolr', '~> 1.0'
 gem 'sass-rails', '~> 5.0'
