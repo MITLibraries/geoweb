@@ -6,6 +6,24 @@ This is the codebase for MIT's GeoBlacklight instance.
 
 See https://github.mit.edu/mitlibraries/geodeploy for instructions on how to deploy this.
 
+# Shapefile downloads
+
+We are using pre-signed download URLs to directly provide links to S3 for
+public layers or if the user is authenticated.
+
+The following ENV are required for this functionality:
+
+- AWS_REGION
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_S3_BUCKET
+
+In development / test it is assumed Minio is in use and you must also set:
+
+- MINIO_URL. `http://localhost:9000` is likely what you want
+
+The download link is set in the metadata for the objects, so in development / test / staging environments this will very likely send you to a production instance when you click the Download links in-app. If you copy the URL and manually change the server to the domain appropriate to your environment you should be able to see the downloads work. Alternately, you can load metadata that has been constructed to have appropriate URLs for your environment.
+
 # Local development
 
 The `docker-compose.yml` file can be used to start up a full GeoWeb stack for local development. There are a few environment variables you need to set first. The easiest way to do this is to add them to a `.env` file in the same directory as the `docker-compose.yml` file, but they can be set in any way you normally would set environment variables.
