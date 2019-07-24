@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   concern :gbl_exportable, Geoblacklight::Routes::Exportable.new
 resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
   concerns :gbl_exportable
@@ -45,6 +45,8 @@ resources :download, only: [:show]
       delete 'clear'
     end
   end
+
+  get '/mit_download/:id', to: 'mit_download#file', as: 'mit_download'
 
   get '*unmatched_route', to: 'application#route_not_found'
 
