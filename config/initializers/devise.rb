@@ -2,9 +2,11 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
 
-  if ENV['AUTH_TYPE'] == 'developer'
+  if ENV['AUTH_TYPE'].include?('developer')
     config.omniauth :developer
-  elsif ENV['AUTH_TYPE'] == 'saml'
+  end
+
+  if ENV['AUTH_TYPE'].include?('saml')
     # Omniauth Config
     idp_metadata_parser = OneLogin::RubySaml::IdpMetadataParser.new
 
@@ -40,8 +42,9 @@ Devise.setup do |config|
                                 embed_sign: false,
                                 digest_method: XMLSecurity::Document::SHA1,
                                 signature_method: XMLSecurity::Document::RSA_SHA1 }
+  end
 
-  else
+  if ENV['AUTH_TYPE'].include?('shibboleth')
     config.omniauth :shibboleth, { info_fields: { email: 'mail' } }
   end
   # The secret key used by Devise. Devise uses this key to generate
