@@ -9,7 +9,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   if ENV['AUTH_TYPE'] == 'developer'
     devise :omniauthable, omniauth_providers: [:developer]
-  elsif ENV['AUTH_TYPE'] = 'saml'
+  elsif ENV['AUTH_TYPE'] == 'saml'
     devise :omniauthable, :omniauth_providers => [:saml]
   else
     devise :omniauthable, :omniauth_providers => [:shibboleth]
