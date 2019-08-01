@@ -31,7 +31,7 @@ Devise.setup do |config|
                     private_key: Base64.strict_decode64(ENV['SP_PRIVATE_KEY']),
                     issuer: ENV['SP_ENTITY_ID'],
                     request_attributes: {},
-                    attribute_statements: { uid: [ENV['URN_UID']],
+                    attribute_statements: { uid: [ENV['URN_EMAIL']],
                                             email: [ENV['URN_EMAIL']],
                                             given_name: [ENV['URN_GIVEN_NAME']],
                                             surname: [ENV['URN_SURNAME']] },
