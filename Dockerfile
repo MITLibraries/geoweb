@@ -1,4 +1,4 @@
-FROM ruby:2.6.1-alpine
+FROM ruby:2.6.3-alpine
 
 RUN apk add --no-cache build-base postgresql-dev nodejs tzdata
 RUN gem install bundler
@@ -8,6 +8,7 @@ COPY Gemfile* /geoweb/
 RUN bundle install --deployment --without development test
 
 COPY . /geoweb/
+RUN mkdir -p /geoweb/tmp/cache/downloads/
 # Devise needs a secret key set, but what the key is doesn't matter when
 # compiling assets. Use a different secret key when running in production.
 RUN \
