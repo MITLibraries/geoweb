@@ -1,4 +1,10 @@
 class Rack::Attack
+  class Request < ::Rack::Request
+    def remote_ip
+      @remote_ip ||= (env['action_dispatch.remote_ip'] || ip).to_s
+    end
+  end
+
   # Once we move to Redis, configure as part of Rails and remove this and
   # rack attack with just use the rails cache
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
@@ -10,7 +16,7 @@ class Rack::Attack
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
   throttle('req/ip', limit: THROTTLE_COUNT, period: THROTTLE_TIME.minutes) do |req|
     unless req.path.start_with?('/ogc') || req.path.start_with?('/assets')
-      req.ip
+      req.remote_ip
     end
   end
 
