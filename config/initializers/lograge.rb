@@ -1,5 +1,6 @@
 Rails.application.configure do
   unless ENV["DISABLE_LOGRAGE"].present?
+    config.log_tags = [ :remote_ip ]
     config.lograge.enabled = true
   end
 
@@ -14,6 +15,7 @@ Rails.application.configure do
   # This is mostly only useful when central logging is set up
   config.lograge.custom_payload do |controller|
     {
+      ip: controller.request.remote_ip,
       host: controller.request.host
     }
   end
