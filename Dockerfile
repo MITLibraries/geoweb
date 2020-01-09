@@ -5,7 +5,9 @@ RUN gem install bundler
 
 WORKDIR /geoweb
 COPY Gemfile* /geoweb/
-RUN bundle install --deployment --without development test
+RUN bundle config set deployment 'true'
+RUN bundle config set without 'development test'
+RUN bundle install
 
 COPY . /geoweb/
 RUN mkdir -p /geoweb/tmp/cache/downloads/
