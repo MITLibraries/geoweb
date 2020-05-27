@@ -8,5 +8,4 @@
 //= require leaflet-iiif
 //= require esri-leaflet
 //= require readmore.min
-//= require leaflet-label-src
 //= require geoweb
