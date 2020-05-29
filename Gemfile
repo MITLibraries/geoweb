@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.3'
+ruby '2.6.6'
 
 gem 'aws-sdk-s3'
 gem 'blacklight', '~> 7.7.0'
