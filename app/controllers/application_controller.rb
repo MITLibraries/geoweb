@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
-  layout 'geoweb'
+  layout :determine_layout if respond_to? :layout
+  #layout 'geoweb'
 
   def after_sign_in_path_for(resource)
     request.env['omniauth.origin'] || stored_location_for(resource) ||

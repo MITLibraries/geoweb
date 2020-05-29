@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.6.3'
 
-gem 'bootstrap', '~> 4.0'
 gem 'aws-sdk-s3'
-gem 'blacklight', '~> 7.0'
+gem 'blacklight', '~> 7.7.0'
 gem 'bootsnap'
+gem 'bootstrap', '~> 4.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'devise-guests', '~> 0.5'
@@ -24,6 +24,7 @@ gem 'rsolr', '~> 1.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sentry-raven'
 gem 'solr_wrapper', '>= 0.3'
+gem 'twitter-typeahead-rails'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
