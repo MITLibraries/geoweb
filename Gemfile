@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.6'
 
 gem 'aws-sdk-s3'
-gem 'blacklight', '~> 7.7.0'
+gem 'blacklight', '~> 7.8.0'
 gem 'bootsnap'
 gem 'bootstrap', '~> 4.0'
 gem 'coffee-rails', '~> 4.2'

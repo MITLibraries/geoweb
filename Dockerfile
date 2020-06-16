@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6.6-alpine
 
 RUN apk add --no-cache build-base postgresql-dev nodejs tzdata
 RUN gem install bundler
