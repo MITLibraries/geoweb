@@ -9,7 +9,7 @@
 
   <% elsif document.restricted? && document.same_institution? %>
 
-    <div class='panel-body'>
+    <div class='card-body'>
       <% if ENV['AUTH_TYPE'] == 'developer' %>
 
         <%= link_to(t('geoblacklight.tools.login_to_view'),
