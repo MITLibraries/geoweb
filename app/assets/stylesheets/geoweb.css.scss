@@ -1,5 +1,5 @@
 #top-navbar {
-  background: #111 image-url("vi-shape7-tp.svg") no-repeat 0 65%;
+  background: #111 image-url('vi-shape7-tp.svg') no-repeat 0 65%;
   padding: 10px 4%;
   color: #fafafa;
 }
@@ -8,7 +8,7 @@
   background-color: #222;
   .navbar-brand {
     background: transparent;
-    width: 250px
+    width: 250px;
   }
   .navbar-collapse {
     .navbar-nav {
@@ -36,14 +36,14 @@
 
 .category-block .category-icon {
   font-size: 2.5em;
-  color: #AAA;
+  color: #aaa;
 }
 
 footer {
   background-color: #111;
   margin-top: 60px;
   .navbar-inverse {
-    background: #111 image-url("vi-shape7-tp.svg") no-repeat 10% center;
+    background: #111 image-url('vi-shape7-tp.svg') no-repeat 10% center;
     border: none;
   }
   .navbar-brand {
@@ -67,7 +67,7 @@ footer {
 }
 
 #featured-searches {
-  .panel-body {
+  .card-body {
     padding: 0;
     h3 {
       margin-left: 15px;
