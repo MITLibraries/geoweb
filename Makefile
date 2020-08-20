@@ -1,4 +1,4 @@
-.PHONY: help dist publish promote
+.PHONY: help dist publish stage promote
 SHELL=/bin/bash
 ECR_REGISTRY=672626379771.dkr.ecr.us-east-1.amazonaws.com
 DATETIME:=$(shell date -u +%Y%m%dT%H%M%SZ)
@@ -16,6 +16,9 @@ publish: ## Push and tag the latest image (use `make dist && make publish`)
 	$$(aws ecr get-login --no-include-email --region us-east-1)
 	docker push $(ECR_REGISTRY)/geoblacklight-stage:latest
 	docker push $(ECR_REGISTRY)/geoblacklight-stage:`git describe --always`
+
+stage: publish ## Deploy image to staging and redeploy service
+	aws ecs update-service --cluster geoblacklight-stage --service geoblacklight-stage --force-new-deployment
 
 promote: ## Promote the current staging build to production
 	$$(aws ecr get-login --no-include-email --region us-east-1)

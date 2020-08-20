@@ -1,0 +1,10 @@
+name: Test
+on: push
+jobs:
+  test:
+    name: Build container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make dist
