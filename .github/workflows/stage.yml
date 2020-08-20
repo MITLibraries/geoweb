@@ -1,0 +1,12 @@
+name: Deploy staging
+on: workflow_dispatch
+jobs:
+  deploy:
+    name: Deploy staging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make dist
+      - name: Deploy
+        run: make stage
