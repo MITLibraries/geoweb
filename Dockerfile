@@ -1,6 +1,6 @@
 FROM ruby:2.6.6-alpine
 
-RUN apk add --no-cache build-base postgresql-dev nodejs tzdata
+RUN apk add --no-cache build-base postgresql-dev yarn tzdata
 RUN gem install bundler
 
 WORKDIR /geoweb
