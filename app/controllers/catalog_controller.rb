@@ -6,12 +6,23 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
 
   configure_blacklight do |config|
+
+    # Ensures that JSON representations of Solr Documents can be retrieved using
+    # the path /catalog/:id/raw
+    # Please see https://github.com/projectblacklight/blacklight/pull/2006/
+    config.raw_endpoint.enabled = true
+
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
+    ## @see https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
+    ## @see https://lucene.apache.org/solr/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theq.altParameter
     config.default_solr_params = {
-      :start => 0,
-      :rows => 10,
+      start: 0,
       'q.alt' => '*:*'
     }
+
+    ## Default rows returned from Solr
+    ## @see https://lucene.apache.org/solr/guide/6_6/common-query-parameters.html
+    config.default_per_page = 10
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
@@ -30,6 +41,9 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
 
     config.show.display_type_field = 'format'
+    config.show.partials << 'show_default_viewer_container'
+    config.show.partials << 'show_default_attribute_table'
+    config.show.partials << 'show_default_viewer_information'
 
     ##
     # Configure the index document presenter.
@@ -122,10 +136,17 @@ class CatalogController < ApplicationController
     config.add_show_field Settings.FIELDS.DESCRIPTION, label: 'Description', itemprop: 'description', helper_method: :render_value_as_truncate_abstract
     config.add_show_field Settings.FIELDS.PUBLISHER, label: 'Publisher', itemprop: 'publisher'
     config.add_show_field Settings.FIELDS.PART_OF, label: 'Collection', itemprop: 'isPartOf'
-    config.add_show_field Settings.FIELDS.SPATIAL_COVERAGE, label: 'Place(s)', itemprop: 'spatial', link_to_search: true
-    config.add_show_field Settings.FIELDS.SUBJECT, label: 'Subject(s)', itemprop: 'keywords', link_to_search: true
+    config.add_show_field Settings.FIELDS.SPATIAL_COVERAGE, label: 'Place(s)', itemprop: 'spatial', link_to_facet: true
+    config.add_show_field Settings.FIELDS.SUBJECT, label: 'Subject(s)', itemprop: 'keywords', link_to_facet: true
     config.add_show_field Settings.FIELDS.TEMPORAL, label: 'Year', itemprop: 'temporal'
-    config.add_show_field Settings.FIELDS.PROVENANCE, label: 'Held by', link_to_search: true
+    config.add_show_field Settings.FIELDS.PROVENANCE, label: 'Held by', link_to_facet: true
+    config.add_show_field(
+      Settings.FIELDS.REFERENCES,
+      label: 'More details at',
+      accessor: [:external_url],
+      if: proc { |_, _, doc| doc.external_url },
+      helper_method: :render_references_url
+    )
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -145,7 +166,7 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    # config.add_search_field 'text', :label => 'All Fields'
+    config.add_search_field 'all_fields', :label => 'All Fields'
     # config.add_search_field 'dc_title_ti', :label => 'Title'
     # config.add_search_field 'dc_description_ti', :label => 'Description'
 
@@ -208,34 +229,45 @@ class CatalogController < ApplicationController
     # mean") suggestion is offered.
     config.spell_max = 5
 
+    # Nav actions from Blacklight
+    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
+    config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+    config.add_nav_action(:help, partial: 'shared/help')
+
+    # Tools from Blacklight
+    config.add_results_collection_tool(:sort_widget)
+    config.add_results_collection_tool(:per_page_widget)
+    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
+    config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
+
     # Custom tools for GeoBlacklight
-    #config.add_show_tools_partial :web_services, if: proc { |_context, _config, options| options[:document] && (Settings.WEBSERVICES_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
-    config.add_show_tools_partial :help, partial: 'help'
     config.add_show_tools_partial :metadata, if: proc { |_context, _config, options| options[:document] && (Settings.METADATA_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
-    config.add_show_tools_partial :exports, partial: 'exports', if: proc { |_context, _config, options| options[:document] }
-    config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary', if: proc { |_context, _config, options| options[:document] }
-    config.add_show_tools_partial :downloads, partial: 'downloads', if: proc { |_context, _config, options| options[:document] }
+    config.add_show_tools_partial :carto, partial: 'carto', if: proc { |_context, _config, options| options[:document] && options[:document].carto_reference.present? }
+    config.add_show_tools_partial :arcgis, partial: 'arcgis', if: proc { |_context, _config, options| options[:document] && options[:document].arcgis_urls.present? }
+    config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary', if: proc { |_context, _config, options| options[:document] && options[:document].data_dictionary_download.present? }
 
     # Configure basemap provider for GeoBlacklight maps (uses https only basemap
     # providers with open licenses)
     # Valid basemaps include:
-    # 'positron' http://cartodb.com/basemaps/
-    # 'darkMatter' http://cartodb.com/basemaps/
-    config.basemap_provider = 'osmhot'
+    # 'positron'
+    # 'darkMatter'
+    # 'positronLite'
+    # 'worldAntique'
+    # 'worldEco'
+    # 'flatBlue'
+    # 'midnightCommander'
+    # 'openstreetmapHot'
+    # 'openstreetmapStandard'
+
+    config.basemap_provider = 'positron'
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
-
-    config.show.document_actions.delete(:citation)
-    config.show.document_actions.delete(:sms)
-    config.show.document_actions.delete(:email)
-
-    config.add_nav_action(:help, partial: '/shared/help')
   end
 
   def file
-    @document = fetch(params[:id])
+    @response, @document = search_service.fetch(params[:id])
 
     if public_file? || current_user
       redirect_to presign_this(s3_key_guesser)
@@ -279,5 +311,4 @@ class CatalogController < ApplicationController
                                       key: layer_id_s,
                                       expires_in: 900)
   end
-
 end
