@@ -46,7 +46,7 @@ resources :download, only: [:show]
     end
   end
 
-  get '/mit_download/:id', to: 'catalog#file', as: 'mit_download'
+  get '/mit_download/:id', to: 'download#file', as: 'mit_download'
 
   get '*unmatched_route', to: 'application#route_not_found'
 
