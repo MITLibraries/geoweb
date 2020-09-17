@@ -14,15 +14,12 @@ class DownloadController < ApplicationController
   end
 
   private
-  
+
   # All of our files are stored in S3 as zip files. This reconstructs
   # the file name based on how the layer_id_s is being set outside of
   # this app during the data loading process.
-  # The same disclaimer about Presenters as in #public_file.
-  # Note: We aren't protecting against invalid @document because that
-  # seems to be done as part of blacklight.
   def s3_key_guesser
-    [@document[1]._source['layer_id_s'].split(':').last, 'zip'].join('.')
+    [@document.wxs_identifier.split(':').last, 'zip'].join('.')
   end
 
   # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Presigner.html
