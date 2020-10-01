@@ -232,6 +232,7 @@ class CatalogController < ApplicationController
     # Nav actions from Blacklight
     config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
+    config.add_nav_action(:mit_at_gis, partial: 'shared/gis_at_mit')
     config.add_nav_action(:help, partial: 'shared/help')
 
     # Tools from Blacklight

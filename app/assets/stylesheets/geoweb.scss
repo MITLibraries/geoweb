@@ -1,5 +1,5 @@
 #top-navbar {
-  background: #111 image-url('vi-shape7-tp.svg') no-repeat 0 65%;
+  background: #000 image-url('vi-shape7-tp.svg') no-repeat 0 65%;
   padding: 10px 4%;
   color: #fafafa;
 }
@@ -39,33 +39,6 @@
   color: #aaa;
 }
 
-footer {
-  background-color: #111;
-  margin-top: 60px;
-  .navbar-inverse {
-    background: #111 image-url('vi-shape7-tp.svg') no-repeat 10% center;
-    border: none;
-  }
-  .navbar-brand {
-    img {
-      max-height: 30px;
-    }
-  }
-  .navbar-collapse {
-    .navbar-nav {
-      li {
-        a {
-          color: #fafafa;
-          &:hover {
-            text-decoration: underline;
-            color: #fafafa;
-          }
-        }
-      }
-    }
-  }
-}
-
 #featured-searches {
   .card-body {
     padding: 0;
@@ -88,4 +61,147 @@ footer {
 
 a {
   color: #337ab7;
+  transition: all .25s ease-in-out 0s;
+  text-decoration: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+      color: #23527c;
+      text-decoration: underline;
+  }
+
+  &:active,
+  &.is-pressed,
+  &.is-active {
+      color: #23527c;
+      text-decoration: underline;
+  }
+}
+
+/* footer styles */
+footer {
+  background-color: #111;
+  margin-top: 60px;
+  .navbar-inverse {
+    background: #111 image-url('vi-shape7-tp.svg') no-repeat 10% center;
+    border: none;
+  }
+  .navbar-brand {
+    fill: #fff;
+    img {
+      max-height: 60px;
+      max-width: 100%;
+      vertical-align: baseline;
+    }
+  }
+  .navbar-collapse {
+    li {
+      a {
+        color: #fff;
+        &:hover {
+          text-decoration: underline;
+          color: #fafafa;
+        }
+      }
+    }
+  }
+  .sr {
+    border: 0 none;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal;
+  }
+
+  .wrap-footer {
+    padding: 20px 4%;
+    font-size: 12px;
+    color: #fff;
+    .wrap-logo-lib {
+      vertical-align: bottom;
+      margin: 0 20px 20px 0;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+      &:hover, &:active, &focus {
+        text-decoration: underline;
+        color: #fff;
+      }
+    }
+    .title {
+      margin-bottom: .8rem;
+    }
+    .wrap-list .link-sub {
+      display: list-item;
+      list-style-type: none;
+      margin-bottom: .65rem;
+      font-weight: 300;
+    }
+    .sitemap-libraries-abbrev {
+      margin-bottom: 0.5rem;
+    }
+    .wrap-policies {
+      display: inline-block;
+      padding-left: 0;
+      li,
+      .item,
+      .nav-link,
+      .nav-item {
+        display: inline-block;
+      }
+      li:after {
+        content: ' | ';
+      }
+      li:last-child:after {
+        content: '';
+      }
+    }
+  }
+
+  .wrap-outer-footer-institute {
+    background-color: #333;
+    font-size: 9px;
+    .wrap-footer-institute {
+      padding: 20px 0;
+    }
+    color: #dedede;
+    .footer-info-institute {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: flex-end;
+          -ms-flex-align: flex-end;
+              align-items: flex-end;
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .link-logo-mit .logo-mit {
+      fill: #ccc;
+      .color {
+        fill: #fff;
+      }
+    }
+    .about-mit {
+      color: #dedede;
+      margin-right: 4%;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .license {
+      margin-left: auto;
+      margin-top: 1rem;
+      color: #dedede;
+    }
+  }
 }
