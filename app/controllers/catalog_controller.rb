@@ -231,6 +231,7 @@ class CatalogController < ApplicationController
     config.show.document_actions.delete(:sms)
     config.show.document_actions.delete(:email)
 
+    config.add_nav_action(:mit_at_gis, partial: 'shared/gis_at_mit')
     config.add_nav_action(:help, partial: '/shared/help')
   end
 

@@ -1,5 +1,5 @@
 #top-navbar {
-  background: #111 image-url("vi-shape7-tp.svg") no-repeat 0 65%;
+  background: #000 image-url("vi-shape7-tp.svg") no-repeat 0 65%;
   padding: 10px 4%;
   color: #fafafa;
 }
@@ -8,7 +8,7 @@
   background-color: #222;
   .navbar-brand {
     background: transparent;
-    width: 250px
+    width: 250px;
   }
   .navbar-collapse {
     .navbar-nav {
@@ -39,33 +39,6 @@
   color: #AAA;
 }
 
-footer {
-  background-color: #111;
-  margin-top: 60px;
-  .navbar-inverse {
-    background: #111 image-url("vi-shape7-tp.svg") no-repeat 10% center;
-    border: none;
-  }
-  .navbar-brand {
-    img {
-      max-height: 30px;
-    }
-  }
-  .navbar-collapse {
-    .navbar-nav {
-      li {
-        a {
-          color: #fafafa;
-          &:hover {
-            text-decoration: underline;
-            color: #fafafa;
-          }
-        }
-      }
-    }
-  }
-}
-
 #featured-searches {
   .panel-body {
     padding: 0;
@@ -80,4 +53,133 @@ footer {
 
 .btn-wrap {
   white-space: normal !important;
+}
+
+/* footer styles */
+footer {
+  .sr {
+    border: 0 none;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal;
+  }
+  .wrap-footer {
+    margin-top: 60px;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    background: #000 image-url('vi-shape7-tp.svg') no-repeat 0 65%;
+    color: #fff;
+    padding: 20px 4%;
+    .wrap-logo-lib {
+      margin-bottom: 40px;
+    }
+    .navbar-brand {
+      fill: #fff;
+      img {
+        max-height: 60px;
+        max-width: 100%;
+        vertical-align: baseline;
+      }
+    }
+    .navbar-toggle {
+      margin-top: 30px;
+    }
+    .navbar-collapse {
+      padding-top: 15px;
+      @media screen and (min-width: 768px) {
+        padding: 15px 0 0 0;
+      }
+      ul {
+        padding-inline-start: 0;
+        li,
+        .item,
+        .nav-link,
+        .nav-item {
+          padding-right: 0.5rem;
+        }
+      }
+      a {
+        color: #fff;
+        &:hover {
+          text-decoration: underline;
+          color: #fafafa;
+        }
+      }
+      .sitemap-libraries-abbrev {
+        li {
+          &::marker {
+            content: ''
+          }
+        }
+      }
+      .wrap-list .link-sub {
+        display: list-item;
+        list-style-type: none;
+        font-weight: 300;
+      }
+      .wrap-policies {
+        display: block;
+        padding-left: 0;
+        li,
+        .item,
+        .nav-link,
+        .nav-item {
+          display: inline-block;
+        }
+        li:after {
+          content: ' | ';
+          padding-right: 0.25rem;
+        }
+        li:last-child:after {
+          content: '';
+        }
+      }
+    }
+  }
+
+  .wrap-outer-footer-institute {
+    background-color: #333;
+    font-size: 9px;
+    .wrap-footer-institute {
+      padding: 20px 0;
+    }
+    color: #dedede;
+    .footer-info-institute {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: flex-end;
+          -ms-flex-align: flex-end;
+              align-items: flex-end;
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .link-logo-mit .logo-mit {
+      fill: #ccc;
+      .color {
+        fill: #fff;
+      }
+    }
+    .about-mit {
+      color: #dedede;
+      margin-right: 4%;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .license {
+      margin-left: auto;
+      margin-top: 1rem;
+      color: #dedede;
+    }
+  }
 }

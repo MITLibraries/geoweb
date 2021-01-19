@@ -1,6 +1,9 @@
 en:
   blacklight:
     application_name: 'GeoWeb'
+    header_links:
+      login: 'Log in'
+      logout: 'Log out'
     search:
       page_title:
         title: 'GeoWeb Search Results'
