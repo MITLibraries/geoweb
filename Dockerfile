@@ -1,6 +1,6 @@
 FROM ruby:2.6.3-alpine
 
-RUN apk add --no-cache build-base postgresql-dev nodejs tzdata
+RUN apk add --no-cache build-base postgresql-dev nodejs tzdata shared-mime-info
 RUN gem install bundler
 
 WORKDIR /geoweb
