@@ -44,3 +44,6 @@ bower.json
 .byebug_history
 
 public/assets
+
+.DS_Store
+**/.DS_Store

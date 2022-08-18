@@ -18,6 +18,6 @@ RUN \
   RAILS_ENV=production \
   bundle exec rake assets:precompile
 
-EXPOSE 3000
+EXPOSE 8001
 
 ENTRYPOINT ["./entrypoint.sh"]
