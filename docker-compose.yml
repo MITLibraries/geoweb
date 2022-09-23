@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  web:
+  geoweb:
     image: geoweb-dev
     build: .
     ports:
@@ -15,8 +15,9 @@ services:
       POSTGRES_DATABASE: postgres
       POSTGRES_HOST: db
       POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: ppassword
       SECRET_KEY_BASE:
-      SOLR_URL: http://solr:8983/solr/geoweb
+      SOLR_URL: http://geosolr:8983/solr/geoweb
       OGC_PROXY_HOST: http://geoserver:8080
       OGC_PROXY_USERNAME: "${GEOSERVER_USER:-admin}"
       OGC_PROXY_PASSWORD: "${GEOSERVER_PASSWORD}"
@@ -24,33 +25,37 @@ services:
     image: docker-geoserver-dev
     ports:
       - "8080:8080"
-    # volumes:
-    #   - type: volume
-    #     source: geoserver
-    #     target: /var/geoserver/data
+    depends_on:
+      - db
+      - geoweb
+    volumes:
+      - type: volume
+        source: geoserver
+        target: /opt/geoserver_data
     environment:
-      JAVA_OPTS: "-Ds3.properties.location=/var/geoserver/data/s3.properties"
+      EXTRA_JAVA_OPTS: "-Ds3.properties.location=/opt/geoserver_data/s3.properties"
       GEOSERVER_USER: "${GEOSERVER_USER:-admin}"
       GEOSERVER_PASSWORD: "${GEOSERVER_PASSWORD}"
       MINIO_URL: http://minio:9000/
       MINIO_USER: "${MINIO_USER:-minio}"
       MINIO_PASSWORD: "${MINIO_PASSWORD}"
-  solr:
+  geosolr:
     image: docker-geosolr-dev
     ports:
       - "8983:8983"
     environment:
       SOLR_HOME: /var/solr/data
       GEO_CORE: /var/solr/data/geoweb
-    # volumes:
-    #   - type: volume
-    #     source: geosolr
-    #     target: /mnt/solr/data
+    volumes:
+      - type: volume
+        source: geosolr
+        target: /var/solr/data
   minio:
     image: minio/minio
     ports:
       - "9000:9000"
-    command: ["server", "/data"]
+      - "9001:9001"
+    command: ["server", "/data", "--console-address", ":9001"]
     environment:
       MINIO_ACCESS_KEY: "${MINIO_USER:-minio}"
       MINIO_SECRET_KEY: "${MINIO_PASSWORD}"
@@ -59,15 +64,21 @@ services:
         source: s3
         target: /data
   db:
-    image: mdillon/postgis
+    image: postgis/postgis:11-3.3
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ppassword
     volumes:
       - type: volume
         source: db
         target: /var/lib/postgresql/data
+  dynamo:
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
 volumes:
-  # geoserver:
-  # geosolr:
+  geoserver:
+  geosolr:
   s3:
   db:
