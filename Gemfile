@@ -27,6 +27,7 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'execjs'
   gem 'sqlite3', '~> 1.3.6'
 end
 
