@@ -16,7 +16,7 @@ development:
   database: <%= ENV["POSTGRES_DATABASE"] %>
   host: <%= ENV["POSTGRES_HOST"] %>
   username: <%= ENV["POSTGRES_USERNAME"] %>
-  password: ppassword
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
