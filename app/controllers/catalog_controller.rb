@@ -17,10 +17,10 @@ class CatalogController < ApplicationController
     # These settings MIT specific changes to match up current Blacklight documentation
     # https://github.com/projectblacklight/blacklight/wiki/Solr-Configuration#document-request-handler
 
-    config.document_solr_request_handler = 'document'
-    config.document_solr_path = 'select'
-    config.document_unique_id_param = 'id'
-
+    config.default_document_solr_params = {
+     :qt => 'document',
+     :q => '{!raw f=layer_slug_s v=$id}'
+    }
 
     # solr field configuration for search results/index views
     # config.index.show_link = 'title_display'
@@ -282,4 +282,11 @@ class CatalogController < ApplicationController
                                       expires_in: 900)
   end
 
+  # This is an override of the blacklight gem's fetch_one method to modify the solr query
+  def fetch_one(id, extra_controller_params)
+    extra_controller_params[:q] = "layer_slug_s:#{id}"
+    solr_response = repository.find id, extra_controller_params
+
+    [solr_response, solr_response.documents.first]
+  end
 end
