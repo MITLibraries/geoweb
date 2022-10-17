@@ -4,7 +4,7 @@ This is the codebase for MIT's GeoBlacklight instance.
 
 ## Deploying
 
-See [geodeploy](https://github.mit.edu/mitlibraries/geodeploy) for instructions on how to deploy this. **Note: This is out of date!**
+See [geodeploy](https://github.mit.edu/mitlibraries/geodeploy) for instructions on how to deploy this. **Note: This is out of date for this branch!**
 
 ## Shapefile downloads
 
